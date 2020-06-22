@@ -18,6 +18,7 @@ int main(void)
     printLinkedList(&a);
 }
 
+// 1 -> 2 -> 3 -> 4 -> NULL
 void printLinkedList(node* node){
     if(node == NULL)
         return;

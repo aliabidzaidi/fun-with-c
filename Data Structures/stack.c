@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Stack: 
+// Stack:
 // Push: element insert at the beginning(head)
 // Pop: element remove from the beginning(head)
 
@@ -11,56 +11,55 @@ typedef struct _node
     struct _node *next;
 } node;
 
-void printStack(node* node);
+node *head = NULL;
+
+void printStack(node *currentNode);
+void push(node **head, int val);
+int pop(node **head);
 
 int main(void)
 {
-    //Get number of Stack elements,
-    int n;
+    push(&head, 0);
+    push(&head, 1);
+    push(&head, 2);
+    push(&head, 3);
 
-    // Read all stack elements and push them
+    printStack(head);
 
-
-    // Create User input screen
-    // 1. Print all stack elements in order
-    // 2. Push element to stack
-    // 3. Pop element
-    // printf("\t\t---Welcome to the Stack program---\n");
-    // printf("1. Print Stack \t 2.Push element \t 3. Pop element \t 4. Quit program\n");
-    int x = 0;
-
-    // while(1){
-    //     x = scanf("Choose your option");
-    //     switch (x)
-    //     {
-    //     case 1:
-    //         printf("Printing stack\n");
-
-    //     case 2:
-    //         printf("Pushing element in stack!!\n");
-
-    //     case 3:
-    //         printf("Pop element in the stack\n");
-
-    //     case 4:
-    //         printf("Exiting program!\n");
-    //         break;
-
-    //     default:
-    //         printf("Incorrect option\n");
-    //         break;
-    //     }
-    // }
-
-    
-    // scanf("Choose your option: %d", &x);
-    // printf("%d",x);
-    printf("Program Exited");
+    int poppedValue = pop(&head);
+    printf("Popped: %d\n", poppedValue);
+    printStack(head);
 }
 
-void printStack(node* node){
-    if(node == NULL)
+void push(node **head, int val)
+{
+    node *new_node;
+    new_node = (node *)malloc(sizeof(node));
+    new_node->value = val;
+    if (*head == NULL)
+        new_node->next = NULL;
+    else
+        new_node->next = *head;
+    *head = new_node;
+}
+
+int pop(node **head)
+{
+    if (*head == NULL){
+        return -1;
+    }
+    node* next_node = (*head)->next;
+    int headValue = (*head)->value;
+
+    free(*head);
+    *head = next_node;
+    return headValue;
+}
+
+void printStack(node *currentNode)
+{
+    if (currentNode == NULL)
         return;
-    printf("Node value: %d\n",(*node).value);
-    printStack((*node).next);
+    printf("Node value: %d\n", currentNode->value);
+    printStack(currentNode->next);
 }
